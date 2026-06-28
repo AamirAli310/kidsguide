@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Success & Discipline Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #f0f4f8;
+            --text-color: #2c3e50;
+            --primary-green: #2ecc71;
+            --primary-green-dark: #27ae60;
+            --mid-orange: #f39c12;
+            --mid-orange-dark: #d35400;
+            --low-blue: #3498db;
+            --low-blue-dark: #2980b9;
+            --card-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            --border-radius: 20px;
+            
+            /* Child Theme Colors */
+            --child1-color: #e74c3c;
+            --child2-color: #3498db;
+            --child3-color: #9b59b6;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding: 20px;
+            line-height: 1.5;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Fredoka', sans-serif;
+        }
+
+        header {
+            background: white;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            margin-bottom: 30px;
+        }
+
+        .children-setup {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 12px;
+        }
+
+        .child-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .child-input-group label {
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .child-input-group input {
+            padding: 8px 12px;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .child-input-group:nth-child(1) input { border-color: var(--child1-color); }
+        .child-input-group:nth-child(2) input { border-color: var(--child2-color); }
+        .child-input-group:nth-child(3) input { border-color: var(--child3-color); }
+
+        /* Real-Time Point Scoreboard */
+        .scoreboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .score-box {
+            text-align: center;
+            padding: 15px;
+            border-radius: 12px;
+            color: white;
+            font-family: 'Fredoka', sans-serif;
+        }
+
+        .score-box-1 { background-color: var(--child1-color); }
+        .score-box-2 { background-color: var(--child2-color); }
+        .score-box-3 { background-color: var(--child3-color); }
+
+        .score-num {
+            font-size: 2rem;
+            font-weight: bold;
+            display: block;
+        }
+
+        /* Calendar Selector */
+        .day-selector-container {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .date-picker {
+            padding: 10px 15px;
+            font-size: 1rem;
+            font-family: 'Fredoka', sans-serif;
+            border: 2px solid #cbd5e1;
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            outline: none;
+        }
+
+        /* Leaderboard and Milestones Section styling */
+        .leaderboard-section {
+            background: white;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            margin-bottom: 35px;
+        }
+
+        .leaderboard-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .leaderboard-panel {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .leaderboard-panel h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .leaderboard-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+
+        .leaderboard-row:last-child {
+            border-bottom: none;
+        }
+
+        .leader-child-name {
+            font-weight: 700;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .qualification-badge {
+            font-size: 0.8rem;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: bold;
+        }
+
+        .badge-qualified {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .badge-pending {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+        }
+
+        /* Grid layouts */
+        .zone-section {
+            margin-bottom: 40px;
+        }
+
+        .zone-header {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 4px solid transparent;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .zone-badge {
+            font-size: 0.9rem;
+            padding: 5px 12px;
+            border-radius: 15px;
+            background: #f1f2f6;
+            color: #57606f;
+        }
+
+        .zone-top .zone-header { border-color: var(--primary-green); color: var(--primary-green-dark); }
+        .zone-mid .zone-header { border-color: var(--mid-orange); color: var(--mid-orange-dark); }
+        .zone-low .zone-header { border-color: var(--low-blue); color: var(--low-blue-dark); }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border: 2px solid #e2e8f0;
+        }
+
+        .card-img-container {
+            width: 100%;
+            height: 180px;
+            overflow: hidden;
+            background: #e2e8f0;
+        }
+
+        .card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            flex-grow: 1;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+        }
+
+        .card-description {
+            color: #64748b;
+            font-size: 0.9rem;
+            min-height: 40px;
+        }
+
+        /* Checklist area for 3 children */
+        .children-checks {
+            border-top: 1px solid #e2e8f0;
+            padding-top: 15px;
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .check-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f8fafc;
+            padding: 8px 12px;
+            border-radius: 8px;
+        }
+
+        .check-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .child-cb {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        /* Parents Area Styling */
+        .parents-remarks-section {
+            background: white;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            margin-bottom: 30px;
+        }
+
+        .remarks-textarea {
+            width: 100%;
+            height: 100px;
+            padding: 12px;
+            border: 2px solid #cbd5e1;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 1rem;
+            resize: vertical;
+            outline: none;
+            margin-top: 10px;
+        }
+
+        .remarks-textarea:focus {
+            border-color: var(--low-blue);
+        }
+
+        /* Database Portability area */
+        .db-controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+            background: #e2e8f0;
+            padding: 15px;
+            border-radius: var(--border-radius);
+        }
+
+        .btn {
+            padding: 10px 20px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .btn-success { background: var(--primary-green); color: white; }
+        .btn-info { background: var(--low-blue); color: white; }
+        .btn-warning { background: var(--mid-orange); color: white; }
+
+        input[type="file"] {
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🏆 Family Success & Discipline Hub</h1>
+        <p>Interactive 3-Child Daily Tracker with Month-Long JSON Storage</p>
+
+        <!-- Children Name Customization -->
+        <div class="children-setup">
+            <div class="child-input-group">
+                <label for="c1-name">👦 Child 1 Name:</label>
+                <input type="text" id="c1-name" value="Child 1" oninput="updateChildNames()">
+            </div>
+            <div class="child-input-group">
+                <label for="c2-name">👧 Child 2 Name:</label>
+                <input type="text" id="c2-name" value="Child 2" oninput="updateChildNames()">
+            </div>
+            <div class="child-input-group">
+                <label for="c3-name">👶 Child 3 Name:</label>
+                <input type="text" id="c3-name" value="Child 3" oninput="updateChildNames()">
+            </div>
+        </div>
+
+        <!-- Date Picker Selector (Today Default) -->
+        <div class="day-selector-container">
+            <label for="datePicker" style="font-weight: bold; font-family: 'Fredoka';">Track Date:</label>
+            <input type="date" id="datePicker" class="date-picker" onchange="switchDay()">
+        </div>
+
+        <!-- Scoreboard Container -->
+        <div class="scoreboard">
+            <div class="score-box score-box-1">
+                <span class="score-num" id="c1-score">0</span>
+                <span id="c1-score-lbl">Child 1</span>'s Score Today
+            </div>
+            <div class="score-box score-box-2">
+                <span class="score-num" id="c2-score">0</span>
+                <span id="c2-score-lbl">Child 2</span>'s Score Today
+            </div>
+            <div class="score-box score-box-3">
+                <span class="score-num" id="c3-score">0</span>
+                <span id="c3-score-lbl">Child 3</span>'s Score Today
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- 🏆 LEADERBOARD SECTION (DYNAMIC CALCULATION) -->
+        <section class="leaderboard-section">
+            <h2>🏆 Family Leaderboard & Milestones</h2>
+            <p style="color: #64748b; font-size: 0.95rem;">Trailing performance calculated from your active selected tracking date.</p>
+            <div class="leaderboard-container">
+                <!-- Weekly Leaderboard Panel -->
+                <div class="leaderboard-panel">
+                    <h3><span>📅 Trailing Week</span> <span style="font-size:0.8rem; color:#7f8c8d;">Goal: 100 pts</span></h3>
+                    <div id="weekly-leaderboard-content">
+                        <!-- JS injected -->
+                    </div>
+                </div>
+
+                <!-- Monthly Leaderboard Panel -->
+                <div class="leaderboard-panel">
+                    <h3><span>🗓️ Trailing Month</span> <span style="font-size:0.8rem; color:#7f8c8d;">Goal: 400 pts</span></h3>
+                    <div id="monthly-leaderboard-content">
+                        <!-- JS injected -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 🌟 ZONE 1: TOP PRIORITY -->
+        <section class="zone-section zone-top">
+            <div class="zone-header">
+                <h2>🌟 ZONE 1: The Non-Negotiables</h2>
+                <span class="zone-badge">Worth: 3 Points Each</span>
+            </div>
+            <div class="cards-grid" id="zone1-grid">
+                <!-- Salah -->
+                <div class="card" data-task-id="salah" data-zone="1">
+                    <div class="card-img-container">
+                        <img class="card-img" src="https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=400&q=80" alt="People praying on prayer mats">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">🕌 5 Daily Prayers</h3>
+                        <p class="card-description">Offer Salah immediately when the call to prayer (Adhan) sounds.</p>
+                        <div class="children-checks"></div>
+                    </div>
+                </div>
+                <!-- Parents Call -->
+                <div class="card" data-task-id="parents" data-zone="1">
+                    <div class="card-img-container">
+                        <img class="card-img" src="https://images.unsplash.com/photo-1542037104857-ffbb0b9155fb?auto=format&fit=crop&w=400&q=80" alt="Positive parent and child talking">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">📢❤️ Parents' Call</h3>
+                        <p class="card-description">Listen, obey, and respond instantly to instructions from Mom & Dad.</p>
+                        <div class="children-checks"></div>
+                    </div>
+                </div>
+                <!-- School first -->
+                <div class="card" data-task-id="school" data-zone="1">
+                    <div class="card-img-container">
+                        <img class="card-img" src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=400&q=80" alt="School">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">🎒✏️ School First</h3>
+                        <p class="card-description">Complete all pending homework and school tasks happily and on time.</p>
+                        <div class="children-checks"></div>
+                    </div>
+                </div>
+                <!-- Sleep Discipline -->
+                <div class="card" data-task-id="sleep" data-zone="1">
+                    <div class="card-img-container">
+                        <img class="card-img" src="https://6a413f69f4f12d1dab653f66.imgix.net/sleepontime/kidsleepontime.jpeg?auto=format&fit=fill&w=400&q=80" alt="Peaceful sleep in bedroom">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">🌙⏰ Sleep Discipline</h3>
+                        <p class="card-description">Wake up early for Fajr and go to bed by 10:00 PM sharp.</p>
+                        <div class="children-checks"></div>
+                    </div>
+                </div>
+                 <!-- Quran & Dhikr -->
+                 <div class="card" data-task-id="quran" data-zone="1">
+                    <div class="card-img-container">
+                        <img class="card-img" src="https://6a413f69f4f12d1dab653f66.imgix.net/quran_tasbih/download.jpeg?auto=format&fit=fill&w=4000&q=80" alt="Quran with Tasbih prayer beads">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">📖✨ Quran & Dhikr</h3>
+                        <p class="card-description">Spend 15 minutes daily reading Quran or saying morning & evening supplications.</p>
+                        <div class="children-checks"></div>
+                    </div>
+                </div>
+                <!-- No Fighting -->
+                <div class="card" data-task-id="fighting" data-zone="1">
+                    <div class="card-img-container">
+                        <img class="card-img" src="https://6a413f69f4f12d1dab653f66.imgix.net/yellingkids/yellingkids.jpeg?auto=format&fit=fill&w=400&q=80" alt="Yelling or shouting children in conflict">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">🤝🚫 Fighting & Abusing Rule</h3>
+                        <p class="card-description">No yelling or fighting. Solve issues calmly, or self-decide a chore-based fix honestly.</p>
+                        <div class="children-checks"></div>
+                    </div>
+                </div>
+                <!-- Magical words 1 -->
+                <div class="card" data-task-id="kindwords" data-zone="1">
+                    <div class="card-img-container">
+                        <img class="card-img" src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=400&q=80" alt="Kids sharing polite interaction">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">🗣️🌸 Magical Words Only</h3>
+                        <p class="card-description">Always speak with kind, gentle, and polite gestures to everyone at home.</p>
+                        <div class="children-checks"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 🔄 ZONE 2: MID PRIORITY -->
+        <section class="zone-section zone-mid">
+            <div class="zone-header">
+                <h2>🔄 ZONE 2: Family & Character Building</h2>
+                <span class="zone-badge">Worth: 2 Points Each</span>
+            </div>
+            <div class="cards-grid" id="zone2-grid">
+                <!-- Guests (Kids respectful values added image) -->
+                <div class="card" data-task-id="guests" data-zone="2">
+                    <div class="card-img-container">
+                        <img class="card-img" src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=400&q=80" alt="Kids showing respectful behavior">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">👵🤝 Respectful Kids</h3>
+                        <p class="card-description">Show deep respect to visitors and assist our elders happily with a smile.</p>
+                        <div class="children-checks"></div>
+                    </div>
+                </div>
+                <!-- Clean Space -->
+                <div class="card" data-task-id="clean" data-zone="2">
+                    <div class="card-img-container">
+                        <img class="card-img" src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=400&q=80" alt="Clean">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">🧹🧸 Clean Spaces</h3>
+                        <p class="card-description">Keep your bedroom tidy, set up your study desk, and make your bed every morning.</p>
+                        <div class="children-checks"></div>
+                    </div>
+                </div>
+                <!-- Phrases (Islamic Calligraphy Representation) -->
+                <div class="card" data-task-id="phrases" data-zone="2">
+                    <div class="card-img-container">
+                        <img class="card-img" src="https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=400&q=80" alt="Beautiful Islamic design with Arabic text features">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">🗣️✨ Islamic Phrases</h3>
+                        <p class="card-description">Always say "Bismillah", "Alhamdulillah", and "JazakAllah Khair" in daily talk.</p>
+                        <div class="children-checks"></div>
+                    </div>
+                </div>
+                <!-- Peaceful Home -->
+                <div class="card" data-task-id="peace" data-zone="2">
+                    <div class="card-img-container">
+                        <img class="card-img" src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=400&q=80" alt="Peaceful">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">🤫🏡 Peaceful Home</h3>
+                        <p class="card-description">Strictly no yelling, screaming, or shouting inside the house.</p>
+                        <div class="children-checks"></div>
+                    </div>
+                </div>
+                <!-- Table Manners -->
+                <div class="card" data-task-id="table" data-zone="2">
+                    <div class="card-img-container">
+                        <img class="card-img" src="https://images.unsplash.com/photo-1547573854-74d2a71d0826?auto=format&fit=crop&w=400&q=80" alt="Table Manners">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">🍽️👌 Sunnah Table Manners</h3>
+                        <p class="card-description">Eat with your right hand, sit comfortably, and share food generously.</p>
+                        <div class="children-checks"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 🎈 ZONE 3: LOW PRIORITY -->
+        <section class="zone-section zone-low">
+            <div class="zone-header">
+                <h2>🎈 ZONE 3: Rewards & Exploration</h2>
+                <span class="zone-badge">Worth: 1 Point Each</span>
+            </div>
+            <div class="cards-grid" id="zone3-grid">
+                <!-- Play -->
+                <div class="card" data-task-id="play" data-zone="3">
+                    <div class="card-img-container">
+                        <img class="card-img" src="https://images.unsplash.com/photo-1596464716127-f2a82984de30?auto=format&fit=crop&w=400&q=80" alt="Play">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">⚽🌳 Active Outdoor Play</h3>
+                        <p class="card-description">Run outside, play sports, and enjoy fresh air during specific evening hours.</p>
+                        <div class="children-checks"></div>
+                    </div>
+                </div>
+                <!-- Screen Time -->
+                <div class="card" data-task-id="screen" data-zone="3">
+                    <div class="card-img-container">
+                        <img class="card-img" src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=400&q=80" alt="Screen">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">📱⏱️ Controlled Screen Time</h3>
+                        <p class="card-description">Use technology only at scheduled times for approved educational content.</p>
+                        <div class="children-checks"></div>
+                    </div>
+                </div>
+                <!-- Intellectual History & Science -->
+                <div class="card" data-task-id="history" data-zone="3">
+                    <div class="card-img-container">
+                        <img class="card-img" src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=400&q=80" alt="Islamic History & Science">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">🔬🛡️ History, Science & Leaders</h3>
+                        <p class="card-description">Read about outstanding Muslim scientists, historical leaders, and run fun science experiments.</p>
+                        <div class="children-checks"></div>
+                    </div>
+                </div>
+                <!-- Treats -->
+                <div class="card" data-task-id="treats" data-zone="3">
+                    <div class="card-img-container">
+                        <img class="card-img" src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=400&q=80" alt="Delicious cookie treats">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">🍕🍦 Snacks & Treats Reward</h3>
+                        <p class="card-description">Enjoy specialized treats as celebration for keeping up with Zone 1 & 2 rules.</p>
+                        <div class="children-checks"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Parents Daily Remarks Section -->
+        <section class="parents-remarks-section">
+            <h2>✍️ Parents' Daily Remarks</h2>
+            <p style="color: #64748b; font-size: 0.95rem;">Write down today's behavior highlights, constructive corrections, and special rewards for each child.</p>
+            <textarea id="parentsRemarks" class="remarks-textarea" placeholder="Example: Yusuf had outstanding focus during Quran study today. Amina responded instantly when called..." oninput="saveRemarks()"></textarea>
+        </section>
+
+        <!-- Database Portability Section -->
+        <section class="parents-remarks-section">
+            <h2>💾 System Storage & Backup Control</h2>
+            <p style="color: #64748b; font-size: 0.95rem; margin-bottom: 15px;">The system automatically saves locally on this computer. You can back up or restore the data for the entire month below.</p>
+            <div class="db-controls">
+                <button class="btn btn-success" onclick="exportData()">📤 Download Month Data (JSON)</button>
+                <button class="btn btn-info" onclick="triggerFileInput()">📥 Import Saved Data (JSON)</button>
+                <input type="file" id="fileImporter" accept=".json" onchange="importData(event)">
+                <button class="btn btn-warning" onclick="clearAllData()">⚠️ Clear All Data</button>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        let currentDayKey = ""; // Standard Date Key: YYYY-MM-DD
+        let children = ["Child 1", "Child 2", "Child 3"];
+        let db = {};
+
+        const WEEKLY_THRESHOLD = 100;
+        const MONTHLY_THRESHOLD = 400;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initCalendar();
+            loadStoredNames();
+            loadDB();
+            renderCheckboxes();
+            loadDayData();
+        });
+
+        function initCalendar() {
+            const datePicker = document.getElementById('datePicker');
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            
+            const todayString = `${year}-${month}-${day}`;
+            datePicker.value = todayString;
+            currentDayKey = todayString;
+        }
+
+        function loadStoredNames() {
+            const stored = localStorage.getItem('fch_names');
+            if (stored) {
+                children = JSON.parse(stored);
+                document.getElementById('c1-name').value = children[0] || "Child 1";
+                document.getElementById('c2-name').value = children[1] || "Child 2";
+                document.getElementById('c3-name').value = children[2] || "Child 3";
+            }
+            updateScoreboardLabels();
+        }
+
+        function updateChildNames() {
+            children[0] = document.getElementById('c1-name').value || "Child 1";
+            children[1] = document.getElementById('c2-name').value || "Child 2";
+            children[2] = document.getElementById('c3-name').value || "Child 3";
+            localStorage.setItem('fch_names', JSON.stringify(children));
+            updateScoreboardLabels();
+            renderCheckboxes();
+            loadDayData();
+        }
+
+        function updateScoreboardLabels() {
+            document.getElementById('c1-score-lbl').textContent = children[0];
+            document.getElementById('c2-score-lbl').textContent = children[1];
+            document.getElementById('c3-score-lbl').textContent = children[2];
+        }
+
+        function renderCheckboxes() {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                const taskId = card.getAttribute('data-task-id');
+                const zone = card.getAttribute('data-zone');
+                const checksContainer = card.querySelector('.children-checks');
+                checksContainer.innerHTML = ''; 
+
+                children.forEach((childName, idx) => {
+                    const row = document.createElement('div');
+                    row.className = 'check-row';
+                    
+                    const label = document.createElement('label');
+                    label.className = 'check-label';
+                    
+                    const cb = document.createElement('input');
+                    cb.type = 'checkbox';
+                    cb.className = 'child-cb';
+                    cb.dataset.taskId = taskId;
+                    cb.dataset.zone = zone;
+                    cb.dataset.childIndex = idx;
+                    cb.addEventListener('change', handleCheckChange);
+
+                    const nameSpan = document.createElement('span');
+                    nameSpan.textContent = childName;
+
+                    label.appendChild(cb);
+                    label.appendChild(nameSpan);
+                    row.appendChild(label);
+                    checksContainer.appendChild(row);
+                });
+            });
+        }
+
+        function loadDB() {
+            const localDB = localStorage.getItem('fch_monthly_db');
+            if (localDB) {
+                db = JSON.parse(localDB);
+            } else {
+                db = {};
+            }
+        }
+
+        function saveDB() {
+            localStorage.setItem('fch_monthly_db', JSON.stringify(db));
+        }
+
+        function loadDayData() {
+            if (!db[currentDayKey]) {
+                db[currentDayKey] = {
+                    tasks: {},
+                    remarks: ""
+                };
+            }
+
+            const dayInfo = db[currentDayKey];
+            
+            const checkboxes = document.querySelectorAll('.child-cb');
+            checkboxes.forEach(cb => {
+                const taskId = cb.dataset.taskId;
+                const childIdx = cb.dataset.childIndex;
+                
+                if (dayInfo.tasks[taskId] && dayInfo.tasks[taskId][childIdx] !== undefined) {
+                    cb.checked = dayInfo.tasks[taskId][childIdx];
+                } else {
+                    cb.checked = false;
+                }
+            });
+
+            document.getElementById('parentsRemarks').value = dayInfo.remarks || "";
+            calculatePoints();
+        }
+
+        function handleCheckChange(e) {
+            const taskId = e.target.dataset.taskId;
+            const childIdx = e.target.dataset.childIndex;
+            const checked = e.target.checked;
+
+            if (!db[currentDayKey]) {
+                db[currentDayKey] = { tasks: {}, remarks: "" };
+            }
+            if (!db[currentDayKey].tasks[taskId]) {
+                db[currentDayKey].tasks[taskId] = {};
+            }
+
+            db[currentDayKey].tasks[taskId][childIdx] = checked;
+            saveDB();
+            calculatePoints();
+        }
+
+        function calculatePoints() {
+            let dailyScores = [0, 0, 0];
+            const dayInfo = db[currentDayKey];
+
+            if (dayInfo && dayInfo.tasks) {
+                const cards = document.querySelectorAll('.card');
+                cards.forEach(card => {
+                    const taskId = card.getAttribute('data-task-id');
+                    const zone = parseInt(card.getAttribute('data-zone'));
+                    
+                    let weight = (zone === 1) ? 3 : (zone === 2) ? 2 : 1;
+
+                    for (let idx = 0; idx < 3; idx++) {
+                        if (dayInfo.tasks[taskId] && dayInfo.tasks[taskId][idx] === true) {
+                            dailyScores[idx] += weight;
+                        }
+                    }
+                });
+            }
+
+            document.getElementById('c1-score').textContent = dailyScores[0];
+            document.getElementById('c2-score').textContent = dailyScores[1];
+            document.getElementById('c3-score').textContent = dailyScores[2];
+
+            // Render Trailing Leaderboards
+            renderLeaderboards();
+        }
+
+        // Calculate Trailing scores logic
+        function calculateCumulativeScores(daysCount) {
+            let totals = [0, 0, 0];
+            let baseDate = new Date(currentDayKey);
+            if (isNaN(baseDate.getTime())) return totals;
+
+            const cards = document.querySelectorAll('.card');
+
+            for (let i = 0; i < daysCount; i++) {
+                let tempDate = new Date(baseDate);
+                tempDate.setDate(baseDate.getDate() - i);
+                
+                let y = tempDate.getFullYear();
+                let m = String(tempDate.getMonth() + 1).padStart(2, '0');
+                let d = String(tempDate.getDate()).padStart(2, '0');
+                let key = `${y}-${m}-${d}`;
+
+                let dayInfo = db[key];
+                if (dayInfo && dayInfo.tasks) {
+                    cards.forEach(card => {
+                        const taskId = card.getAttribute('data-task-id');
+                        const zone = parseInt(card.getAttribute('data-zone'));
+                        let weight = (zone === 1) ? 3 : (zone === 2) ? 2 : 1;
+
+                        for (let idx = 0; idx < 3; idx++) {
+                            if (dayInfo.tasks[taskId] && dayInfo.tasks[taskId][idx] === true) {
+                                totals[idx] += weight;
+                            }
+                        }
+                    });
+                }
+            }
+            return totals;
+        }
+
+        function renderLeaderboards() {
+            const weeklyScores = calculateCumulativeScores(7);
+            const monthlyScores = calculateCumulativeScores(30);
+
+            const weeklyContainer = document.getElementById('weekly-leaderboard-content');
+            const monthlyContainer = document.getElementById('monthly-leaderboard-content');
+
+            weeklyContainer.innerHTML = '';
+            monthlyContainer.innerHTML = '';
+
+            // Render Weekly rows
+            children.forEach((name, idx) => {
+                const score = weeklyScores[idx];
+                const qualified = score >= WEEKLY_THRESHOLD;
+                const statusBadge = qualified 
+                    ? `<span class="qualification-badge badge-qualified">🎉 Qualified</span>`
+                    : `<span class="qualification-badge badge-pending">⚡ ${WEEKLY_THRESHOLD - score} pts left</span>`;
+
+                weeklyContainer.innerHTML += `
+                    <div class="leaderboard-row">
+                        <span class="leader-child-name">${name} <strong style="color:var(--child${idx+1}-color);">${score} pts</strong></span>
+                        ${statusBadge}
+                    </div>
+                `;
+            });
+
+            // Render Monthly rows
+            children.forEach((name, idx) => {
+                const score = monthlyScores[idx];
+                const qualified = score >= MONTHLY_THRESHOLD;
+                const statusBadge = qualified 
+                    ? `<span class="qualification-badge badge-qualified">🏆 Qualified</span>`
+                    : `<span class="qualification-badge badge-pending">⚡ ${MONTHLY_THRESHOLD - score} pts left</span>`;
+
+                monthlyContainer.innerHTML += `
+                    <div class="leaderboard-row">
+                        <span class="leader-child-name">${name} <strong style="color:var(--child${idx+1}-color);">${score} pts</strong></span>
+                        ${statusBadge}
+                    </div>
+                `;
+            });
+        }
+
+        function saveRemarks() {
+            const val = document.getElementById('parentsRemarks').value;
+            if (!db[currentDayKey]) {
+                db[currentDayKey] = { tasks: {}, remarks: "" };
+            }
+            db[currentDayKey].remarks = val;
+            saveDB();
+        }
+
+        function switchDay() {
+            currentDayKey = document.getElementById('datePicker').value;
+            loadDayData();
+        }
+
+        function exportData() {
+            const packageData = {
+                names: children,
+                database: db
+            };
+            const jsonString = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(packageData, null, 2));
+            const dlAnchor = document.createElement('a');
+            dlAnchor.setAttribute("href", jsonString);
+            dlAnchor.setAttribute("download", `family_success_month_backup.json`);
+            document.body.appendChild(dlAnchor);
+            dlAnchor.click();
+            dlAnchor.remove();
+        }
+
+        function triggerFileInput() {
+            document.getElementById('fileImporter').click();
+        }
+
+        function importData(event) {
+            const input = event.target;
+            const reader = new FileReader();
+            reader.onload = function() {
+                try {
+                    const parsed = JSON.parse(reader.result);
+                    if (parsed.names && parsed.database) {
+                        children = parsed.names;
+                        db = parsed.database;
+                        
+                        localStorage.setItem('fch_names', JSON.stringify(children));
+                        saveDB();
+                        
+                        document.getElementById('c1-name').value = children[0] || "Child 1";
+                        document.getElementById('c2-name').value = children[1] || "Child 2";
+                        document.getElementById('c3-name').value = children[2] || "Child 3";
+                        
+                        updateScoreboardLabels();
+                        renderCheckboxes();
+                        loadDayData();
+                        alert("Data successfully imported!");
+                    } else {
+                        alert("Invalid file format. Make sure it is a valid backup file.");
+                    }
+                } catch (e) {
+                    alert("Error parsing the JSON file.");
+                }
+            };
+            reader.readAsText(input.files[0]);
+        }
+
+        function clearAllData() {
+            const userPassword = prompt("🔐 Please enter the Parent Password to reset all monthly records:");
+            if (userPassword === "test101") {
+                if (confirm("⚠️ Are you sure you want to permanently delete all stored data? This cannot be undone.")) {
+                    db = {};
+                    saveDB();
+                    loadDayData();
+                    alert("All databases have been reset.");
+                }
+            } else {
+                alert("Incorrect password. Action access denied.");
+            }
+        }
+    </script>
+</body>
+</html>
