@@ -1,4 +1,4 @@
-<img width="468" height="160" alt="image" src="https://github.com/user-attachments/assets/70f5286a-2ac7-4e07-a42e-dfd88baafef1" /># Aamir Ali Program for KidsGuide
+# Aamir Ali Program for KidsGuide
 This interactive daily habit and behavior tracker is designed for Muslim families to motivate up to three children. It features a weight-based points system categorized across three priority zones (Top, Mid, and Low) with customizable child names. A native calendar selector lets parents track daily checklists, view real-time scores, and write personalized daily feedback. 
 All compiled progress is securely stored on the local browser storage and can be backed up or restored using portable JSON files.
 
