@@ -26,7 +26,7 @@ To make this app accessible on mobile phones and tablets for your family:
 1. Push this repository to GitHub.
 2. Go to **Settings** > **Pages** inside your GitHub repository.
 3. Under **Branch**, select `main` (or `master`) and `/root`, then click **Save**.
-4. Within a few minutes, GitHub will provide a live URL (e.g., `https://yourusername.github.io/your-repo-name`).
+4. Within a few minutes, GitHub will provide a live URL (e.g., `https://aamirali310.github.io/kidsguide`).
 
 ## 📄 License
 This project is open-source and licensed under the MIT License.
