@@ -20,17 +20,21 @@
             --low-blue-dark: #2980b9;
             --card-shadow: 0 8px 20px rgba(0,0,0,0.06);
             --border-radius: 20px;
-            
-            /* Child Theme Colors */
-            --child1-color: #e74c3c;
-            --child2-color: #3498db;
-            --child3-color: #9b59b6;
         }
+
+        /* Dynamic Child Colors Map */
+        .child-color-0 { background-color: #e74c3c; border-color: #e74c3c; }
+        .child-color-1 { background-color: #3498db; border-color: #3498db; }
+        .child-color-2 { background-color: #9b59b6; border-color: #9b59b6; }
+        .child-color-3 { background-color: #2ecc71; border-color: #2ecc71; }
+        .child-color-4 { background-color: #f1c40f; border-color: #f1c40f; }
+        .child-color-5 { background-color: #e67e22; border-color: #e67e22; }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            scroll-behavior: smooth;
         }
 
         body {
@@ -38,11 +42,47 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             padding: 20px;
+            padding-top: 80px; /* Space for sticky header */
             line-height: 1.5;
         }
 
         h1, h2, h3, h4 {
             font-family: 'Fredoka', sans-serif;
+        }
+
+        /* Sticky Navigation Zone Shift Bar */
+        .quick-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 12px;
+            overflow-x: auto;
+        }
+
+        .quick-nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: #f1f2f6;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .quick-nav a:hover {
+            background: var(--low-blue);
+            color: white;
         }
 
         header {
@@ -53,14 +93,36 @@
             margin-bottom: 30px;
         }
 
-        .children-setup {
+        /* Configuration Setup Panel */
+        .setup-panel {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .children-count-selector {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: bold;
+        }
+
+        .children-count-selector select {
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 2px solid #cbd5e1;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .children-names-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
-            margin-top: 20px;
-            background: #f8fafc;
-            padding: 15px;
-            border-radius: 12px;
         }
 
         .child-input-group {
@@ -83,11 +145,7 @@
             outline: none;
         }
 
-        .child-input-group:nth-child(1) input { border-color: var(--child1-color); }
-        .child-input-group:nth-child(2) input { border-color: var(--child2-color); }
-        .child-input-group:nth-child(3) input { border-color: var(--child3-color); }
-
-        /* Real-Time Point Scoreboard */
+        /* Dynamic Scoreboard grid matching auto-fit child counts */
         .scoreboard {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -101,11 +159,8 @@
             border-radius: 12px;
             color: white;
             font-family: 'Fredoka', sans-serif;
+            border: 2px solid transparent;
         }
-
-        .score-box-1 { background-color: var(--child1-color); }
-        .score-box-2 { background-color: var(--child2-color); }
-        .score-box-3 { background-color: var(--child3-color); }
 
         .score-num {
             font-size: 2rem;
@@ -140,6 +195,7 @@
             border-radius: var(--border-radius);
             box-shadow: var(--card-shadow);
             margin-bottom: 35px;
+            scroll-margin-top: 80px;
         }
 
         .leaderboard-container {
@@ -208,6 +264,7 @@
         /* Grid layouts */
         .zone-section {
             margin-bottom: 40px;
+            scroll-margin-top: 80px;
         }
 
         .zone-header {
@@ -279,7 +336,7 @@
             min-height: 40px;
         }
 
-        /* Checklist area for 3 children */
+        /* Checklist area for dynamic children */
         .children-checks {
             border-top: 1px solid #e2e8f0;
             padding-top: 15px;
@@ -314,6 +371,56 @@
             cursor: pointer;
         }
 
+        /* Dynamic Salah Sub-Question Styles */
+        .salah-child-block {
+            background: #f8fafc;
+            padding: 10px;
+            border-radius: 12px;
+            margin-bottom: 5px;
+            border-left: 4px solid #cbd5e1;
+        }
+
+        /* Dynamic border colors matched in JS */
+        .salah-child-block-0 { border-left-color: #e74c3c; }
+        .salah-child-block-1 { border-left-color: #3498db; }
+        .salah-child-block-2 { border-left-color: #9b59b6; }
+        .salah-child-block-3 { border-left-color: #2ecc71; }
+        .salah-child-block-4 { border-left-color: #f1c40f; }
+        .salah-child-block-5 { border-left-color: #e67e22; }
+
+        .salah-child-name {
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+            display: block;
+        }
+        .salah-pills-container {
+            display: flex;
+            gap: 5px;
+            justify-content: space-between;
+        }
+        .salah-pill-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 0.72rem;
+            font-weight: bold;
+            cursor: pointer;
+            flex: 1;
+            background: #e2e8f0;
+            padding: 6px 2px;
+            border-radius: 8px;
+            transition: background 0.2s, color 0.2s;
+            user-select: none;
+        }
+        .salah-pill-label input {
+            display: none;
+        }
+        .salah-pill-label.active {
+            background: var(--primary-green);
+            color: white;
+        }
+
         /* Parents Area Styling */
         .parents-remarks-section {
             background: white;
@@ -321,6 +428,7 @@
             border-radius: var(--border-radius);
             box-shadow: var(--card-shadow);
             margin-bottom: 30px;
+            scroll-margin-top: 80px;
         }
 
         .remarks-textarea {
@@ -377,23 +485,35 @@
 </head>
 <body>
 
+    <!-- Sticky Nav Shift Bar -->
+    <nav class="quick-nav">
+        <a href="#leaderboard">🏆 Leaderboard</a>
+        <a href="#zone1">🌟 Zone 1</a>
+        <a href="#zone2">🔄 Zone 2</a>
+        <a href="#zone3">🎈 Zone 3</a>
+        <a href="#remarks">✍️ Remarks</a>
+    </nav>
+
     <header>
         <h1>🏆 Family Success & Discipline Hub</h1>
-        <p>Interactive 3-Child Daily Tracker with Month-Long JSON Storage</p>
+        <p>Interactive Multi-Child Daily Tracker with Month-Long JSON Storage</p>
 
-        <!-- Children Name Customization -->
-        <div class="children-setup">
-            <div class="child-input-group">
-                <label for="c1-name">👦 Child 1 Name:</label>
-                <input type="text" id="c1-name" value="Child 1" oninput="updateChildNames()">
+        <!-- Dynamic Configuration Panel -->
+        <div class="setup-panel">
+            <div class="children-count-selector">
+                <label for="childCountSelect">Number of Children:</label>
+                <select id="childCountSelect" onchange="adjustChildCount()">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3" selected>3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                </select>
             </div>
-            <div class="child-input-group">
-                <label for="c2-name">👧 Child 2 Name:</label>
-                <input type="text" id="c2-name" value="Child 2" oninput="updateChildNames()">
-            </div>
-            <div class="child-input-group">
-                <label for="c3-name">👶 Child 3 Name:</label>
-                <input type="text" id="c3-name" value="Child 3" oninput="updateChildNames()">
+            
+            <div id="childrenNamesContainer" class="children-names-grid">
+                <!-- Inputs generated dynamically -->
             </div>
         </div>
 
@@ -403,63 +523,44 @@
             <input type="date" id="datePicker" class="date-picker" onchange="switchDay()">
         </div>
 
-        <!-- Scoreboard Container -->
-        <div class="scoreboard">
-            <div class="score-box score-box-1">
-                <span class="score-num" id="c1-score">0</span>
-                <span id="c1-score-lbl">Child 1</span>'s Score Today
-            </div>
-            <div class="score-box score-box-2">
-                <span class="score-num" id="c2-score">0</span>
-                <span id="c2-score-lbl">Child 2</span>'s Score Today
-            </div>
-            <div class="score-box score-box-3">
-                <span class="score-num" id="c3-score">0</span>
-                <span id="c3-score-lbl">Child 3</span>'s Score Today
-            </div>
-        </div>
+        <!-- Scoreboard Container (Generated dynamically) -->
+        <div class="scoreboard" id="scoreboardContainer"></div>
     </header>
 
     <main>
-        <!-- 🏆 LEADERBOARD SECTION (DYNAMIC CALCULATION) -->
-        <section class="leaderboard-section">
+        <!-- 🏆 LEADERBOARD SECTION -->
+        <section class="leaderboard-section" id="leaderboard">
             <h2>🏆 Family Leaderboard & Milestones</h2>
             <p style="color: #64748b; font-size: 0.95rem;">Trailing performance calculated from your active selected tracking date.</p>
             <div class="leaderboard-container">
-                <!-- Weekly Leaderboard Panel -->
                 <div class="leaderboard-panel">
                     <h3><span>📅 Trailing Week</span> <span style="font-size:0.8rem; color:#7f8c8d;">Goal: 100 pts</span></h3>
-                    <div id="weekly-leaderboard-content">
-                        <!-- JS injected -->
-                    </div>
+                    <div id="weekly-leaderboard-content"></div>
                 </div>
 
-                <!-- Monthly Leaderboard Panel -->
                 <div class="leaderboard-panel">
                     <h3><span>🗓️ Trailing Month</span> <span style="font-size:0.8rem; color:#7f8c8d;">Goal: 400 pts</span></h3>
-                    <div id="monthly-leaderboard-content">
-                        <!-- JS injected -->
-                    </div>
+                    <div id="monthly-leaderboard-content"></div>
                 </div>
             </div>
         </section>
 
         <!-- 🌟 ZONE 1: TOP PRIORITY -->
-        <section class="zone-section zone-top">
+        <section class="zone-section zone-top" id="zone1">
             <div class="zone-header">
                 <h2>🌟 ZONE 1: The Non-Negotiables</h2>
-                <span class="zone-badge">Worth: 3 Points Each</span>
+                <span class="zone-badge">Worth: 3 Points Each (Prayers: 1 pt each)</span>
             </div>
             <div class="cards-grid" id="zone1-grid">
-                <!-- Salah -->
-                <div class="card" data-task-id="salah" data-zone="1">
+                <!-- Salah Card with 5 Sub-Questions -->
+                <div class="card" data-task-id="salah" data-zone="1" id="salah-card">
                     <div class="card-img-container">
                         <img class="card-img" src="https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=400&q=80" alt="People praying on prayer mats">
                     </div>
                     <div class="card-content">
                         <h3 class="card-title">🕌 5 Daily Prayers</h3>
-                        <p class="card-description">Offer Salah immediately when the call to prayer (Adhan) sounds.</p>
-                        <div class="children-checks"></div>
+                        <p class="card-description">Offer each Salah on time. Light up the pills when completed!</p>
+                        <div class="children-checks" id="salah-checks-container"></div>
                     </div>
                 </div>
                 <!-- Parents Call -->
@@ -495,14 +596,25 @@
                         <div class="children-checks"></div>
                     </div>
                 </div>
-                 <!-- Quran & Dhikr -->
-                 <div class="card" data-task-id="quran" data-zone="1">
+                <!-- Split Quran & Dhikr: Morning -->
+                <div class="card" data-task-id="quran_morning" data-zone="1">
                     <div class="card-img-container">
-                        <img class="card-img" src="https://6a413f69f4f12d1dab653f66.imgix.net/quran_tasbih/download.jpeg?auto=format&fit=fill&w=4000&q=80" alt="Quran with Tasbih prayer beads">
+                        <img class="card-img" src="https://6a413f69f4f12d1dab653f66.imgix.net/quran_tasbih/download.jpeg?auto=format&fit=fill&w=400&q=80" alt="Quran with Tasbih prayer beads">
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">📖✨ Quran & Dhikr</h3>
-                        <p class="card-description">Spend 15 minutes daily reading Quran or saying morning & evening supplications.</p>
+                        <h3 class="card-title">🌅📖 Morning Quran & Dhikr</h3>
+                        <p class="card-description">Dedicate time after Fajr to read Quran and complete morning Azkar reminders.</p>
+                        <div class="children-checks"></div>
+                    </div>
+                </div>
+                <!-- Split Quran & Dhikr: Evening -->
+                <div class="card" data-task-id="quran_evening" data-zone="1">
+                    <div class="card-img-container">
+                        <img class="card-img" src="https://6a413f69f4f12d1dab653f66.imgix.net/quran_tasbih/download.jpeg?auto=format&fit=fill&w=400&q=80" alt="Quran with Tasbih prayer beads">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">🌃📖 Evening Quran & Dhikr</h3>
+                        <p class="card-description">Spend time after Asr or Maghrib on evening supplications and review.</p>
                         <div class="children-checks"></div>
                     </div>
                 </div>
@@ -532,13 +644,13 @@
         </section>
 
         <!-- 🔄 ZONE 2: MID PRIORITY -->
-        <section class="zone-section zone-mid">
+        <section class="zone-section zone-mid" id="zone2">
             <div class="zone-header">
                 <h2>🔄 ZONE 2: Family & Character Building</h2>
                 <span class="zone-badge">Worth: 2 Points Each</span>
             </div>
             <div class="cards-grid" id="zone2-grid">
-                <!-- Guests (Kids respectful values added image) -->
+                <!-- Guests -->
                 <div class="card" data-task-id="guests" data-zone="2">
                     <div class="card-img-container">
                         <img class="card-img" src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=400&q=80" alt="Kids showing respectful behavior">
@@ -560,7 +672,7 @@
                         <div class="children-checks"></div>
                     </div>
                 </div>
-                <!-- Phrases (Islamic Calligraphy Representation) -->
+                <!-- Phrases -->
                 <div class="card" data-task-id="phrases" data-zone="2">
                     <div class="card-img-container">
                         <img class="card-img" src="https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=400&q=80" alt="Beautiful Islamic design with Arabic text features">
@@ -597,7 +709,7 @@
         </section>
 
         <!-- 🎈 ZONE 3: LOW PRIORITY -->
-        <section class="zone-section zone-low">
+        <section class="zone-section zone-low" id="zone3">
             <div class="zone-header">
                 <h2>🎈 ZONE 3: Rewards & Exploration</h2>
                 <span class="zone-badge">Worth: 1 Point Each</span>
@@ -651,7 +763,7 @@
         </section>
 
         <!-- Parents Daily Remarks Section -->
-        <section class="parents-remarks-section">
+        <section class="parents-remarks-section" id="remarks">
             <h2>✍️ Parents' Daily Remarks</h2>
             <p style="color: #64748b; font-size: 0.95rem;">Write down today's behavior highlights, constructive corrections, and special rewards for each child.</p>
             <textarea id="parentsRemarks" class="remarks-textarea" placeholder="Example: Yusuf had outstanding focus during Quran study today. Amina responded instantly when called..." oninput="saveRemarks()"></textarea>
@@ -677,11 +789,13 @@
 
         const WEEKLY_THRESHOLD = 100;
         const MONTHLY_THRESHOLD = 400;
+        const PRAYERS = ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'];
 
         document.addEventListener('DOMContentLoaded', () => {
             initCalendar();
-            loadStoredNames();
+            loadStoredNamesAndConfig();
             loadDB();
+            renderDynamicSetup();
             renderCheckboxes();
             loadDayData();
         });
@@ -698,35 +812,95 @@
             currentDayKey = todayString;
         }
 
-        function loadStoredNames() {
-            const stored = localStorage.getItem('fch_names');
-            if (stored) {
-                children = JSON.parse(stored);
-                document.getElementById('c1-name').value = children[0] || "Child 1";
-                document.getElementById('c2-name').value = children[1] || "Child 2";
-                document.getElementById('c3-name').value = children[2] || "Child 3";
+        // Load configured number of children and their saved names
+        function loadStoredNamesAndConfig() {
+            const countStored = localStorage.getItem('fch_child_count');
+            const namesStored = localStorage.getItem('fch_names');
+
+            if (countStored) {
+                document.getElementById('childCountSelect').value = countStored;
+                children = Array(parseInt(countStored)).fill("").map((_, i) => `Child ${i+1}`);
             }
-            updateScoreboardLabels();
+            if (namesStored) {
+                const loadedNames = JSON.parse(namesStored);
+                // Map parsed names up to dynamic count
+                children = children.map((fallback, idx) => loadedNames[idx] || fallback);
+            }
         }
 
-        function updateChildNames() {
-            children[0] = document.getElementById('c1-name').value || "Child 1";
-            children[1] = document.getElementById('c2-name').value || "Child 2";
-            children[2] = document.getElementById('c3-name').value || "Child 3";
+        // Adjust input UI and internal array based on selection
+        function adjustChildCount() {
+            const count = parseInt(document.getElementById('childCountSelect').value);
+            localStorage.setItem('fch_child_count', count);
+            
+            // Build current list of names from inputs to avoid wiping out edits when size changes
+            const currentNames = [];
+            for (let i = 0; i < 6; i++) {
+                const el = document.getElementById(`c${i}-name`);
+                if (el) currentNames.push(el.value);
+            }
+
+            children = Array(count).fill("").map((_, i) => currentNames[i] || `Child ${i+1}`);
             localStorage.setItem('fch_names', JSON.stringify(children));
+
+            renderDynamicSetup();
+            renderCheckboxes();
+            loadDayData();
+        }
+
+        // Render input text fields dynamically based on selection size
+        function renderDynamicSetup() {
+            const container = document.getElementById('childrenNamesContainer');
+            container.innerHTML = '';
+
+            children.forEach((name, idx) => {
+                const group = document.createElement('div');
+                group.className = 'child-input-group';
+                group.innerHTML = `
+                    <label for="c${idx}-name">👤 Name of Child ${idx+1}:</label>
+                    <input type="text" id="c${idx}-name" value="${name}" oninput="handleChildNameEdit(${idx}, this.value)">
+                `;
+                container.appendChild(group);
+            });
+
+            renderScoreboardContainers();
+        }
+
+        function handleChildNameEdit(idx, val) {
+            children[idx] = val || `Child ${idx+1}`;
+            localStorage.setItem('fch_names', JSON.stringify(children));
+            
             updateScoreboardLabels();
             renderCheckboxes();
             loadDayData();
         }
 
+        // Dynamic Scorebox Elements
+        function renderScoreboardContainers() {
+            const container = document.getElementById('scoreboardContainer');
+            container.innerHTML = '';
+
+            children.forEach((name, idx) => {
+                const scoreBox = document.createElement('div');
+                scoreBox.className = `score-box child-color-${idx}`;
+                scoreBox.innerHTML = `
+                    <span class="score-num" id="c${idx}-score">0</span>
+                    <span id="c${idx}-score-lbl">${name}</span>'s Score Today
+                `;
+                container.appendChild(scoreBox);
+            });
+        }
+
         function updateScoreboardLabels() {
-            document.getElementById('c1-score-lbl').textContent = children[0];
-            document.getElementById('c2-score-lbl').textContent = children[1];
-            document.getElementById('c3-score-lbl').textContent = children[2];
+            children.forEach((name, idx) => {
+                const lbl = document.getElementById(`c${idx}-score-lbl`);
+                if (lbl) lbl.textContent = name;
+            });
         }
 
         function renderCheckboxes() {
-            const cards = document.querySelectorAll('.card');
+            // Render regular cards (excluding salah)
+            const cards = document.querySelectorAll('.card:not(#salah-card)');
             cards.forEach(card => {
                 const taskId = card.getAttribute('data-task-id');
                 const zone = card.getAttribute('data-zone');
@@ -757,6 +931,35 @@
                     checksContainer.appendChild(row);
                 });
             });
+
+            // Render Salah Special Sub-Question Pills
+            const salahContainer = document.getElementById('salah-checks-container');
+            salahContainer.innerHTML = '';
+            children.forEach((childName, idx) => {
+                const block = document.createElement('div');
+                block.className = `salah-child-block salah-child-block-${idx}`;
+
+                const label = document.createElement('span');
+                label.className = 'salah-child-name';
+                label.textContent = `${childName}:`;
+                block.appendChild(label);
+
+                const pillsContainer = document.createElement('div');
+                pillsContainer.className = 'salah-pills-container';
+
+                PRAYERS.forEach(prayer => {
+                    const pill = document.createElement('label');
+                    pill.className = `salah-pill-label salah-pill-${idx}-${prayer}`;
+                    pill.innerHTML = `
+                        <input type="checkbox" class="salah-cb" data-prayer="${prayer}" data-child-index="${idx}" onchange="handleSalahChange(this)">
+                        <span>${prayer.charAt(0).toUpperCase() + prayer.slice(1)}</span>
+                    `;
+                    pillsContainer.appendChild(pill);
+                });
+
+                block.appendChild(pillsContainer);
+                salahContainer.appendChild(block);
+            });
         }
 
         function loadDB() {
@@ -782,6 +985,7 @@
 
             const dayInfo = db[currentDayKey];
             
+            // Populate regular checkboxes
             const checkboxes = document.querySelectorAll('.child-cb');
             checkboxes.forEach(cb => {
                 const taskId = cb.dataset.taskId;
@@ -791,6 +995,24 @@
                     cb.checked = dayInfo.tasks[taskId][childIdx];
                 } else {
                     cb.checked = false;
+                }
+            });
+
+            // Populate Salah sub-questions
+            const salahCbs = document.querySelectorAll('.salah-cb');
+            salahCbs.forEach(cb => {
+                const prayer = cb.dataset.prayer;
+                const childIdx = cb.dataset.childIndex;
+                const key = `salah_${prayer}`;
+                
+                if (dayInfo.tasks[key] && dayInfo.tasks[key][childIdx] !== undefined) {
+                    cb.checked = dayInfo.tasks[key][childIdx];
+                    const label = cb.closest('.salah-pill-label');
+                    if (cb.checked) label.classList.add('active');
+                    else label.classList.remove('active');
+                } else {
+                    cb.checked = false;
+                    cb.closest('.salah-pill-label').classList.remove('active');
                 }
             });
 
@@ -815,41 +1037,73 @@
             calculatePoints();
         }
 
+        function handleSalahChange(cb) {
+            const prayer = cb.dataset.prayer;
+            const childIdx = cb.dataset.childIndex;
+            const checked = cb.checked;
+            const key = `salah_${prayer}`;
+
+            const label = cb.closest('.salah-pill-label');
+            if (checked) label.classList.add('active');
+            else label.classList.remove('active');
+
+            if (!db[currentDayKey]) {
+                db[currentDayKey] = { tasks: {}, remarks: "" };
+            }
+            if (!db[currentDayKey].tasks[key]) {
+                db[currentDayKey].tasks[key] = {};
+            }
+
+            db[currentDayKey].tasks[key][childIdx] = checked;
+            saveDB();
+            calculatePoints();
+        }
+
         function calculatePoints() {
-            let dailyScores = [0, 0, 0];
+            let dailyScores = Array(children.length).fill(0);
             const dayInfo = db[currentDayKey];
 
             if (dayInfo && dayInfo.tasks) {
-                const cards = document.querySelectorAll('.card');
+                // Calculate standard cards
+                const cards = document.querySelectorAll('.card:not(#salah-card)');
                 cards.forEach(card => {
                     const taskId = card.getAttribute('data-task-id');
                     const zone = parseInt(card.getAttribute('data-zone'));
-                    
                     let weight = (zone === 1) ? 3 : (zone === 2) ? 2 : 1;
 
-                    for (let idx = 0; idx < 3; idx++) {
+                    for (let idx = 0; idx < children.length; idx++) {
                         if (dayInfo.tasks[taskId] && dayInfo.tasks[taskId][idx] === true) {
                             dailyScores[idx] += weight;
                         }
                     }
                 });
+
+                // Calculate Salah Sub-Questions (1 point each)
+                PRAYERS.forEach(prayer => {
+                    const key = `salah_${prayer}`;
+                    for (let idx = 0; idx < children.length; idx++) {
+                        if (dayInfo.tasks[key] && dayInfo.tasks[key][idx] === true) {
+                            dailyScores[idx] += 1;
+                        }
+                    }
+                });
             }
 
-            document.getElementById('c1-score').textContent = dailyScores[0];
-            document.getElementById('c2-score').textContent = dailyScores[1];
-            document.getElementById('c3-score').textContent = dailyScores[2];
+            // Write dynamically calculated daily scores
+            children.forEach((_, idx) => {
+                const element = document.getElementById(`c${idx}-score`);
+                if (element) element.textContent = dailyScores[idx];
+            });
 
-            // Render Trailing Leaderboards
             renderLeaderboards();
         }
 
-        // Calculate Trailing scores logic
         function calculateCumulativeScores(daysCount) {
-            let totals = [0, 0, 0];
+            let totals = Array(children.length).fill(0);
             let baseDate = new Date(currentDayKey);
             if (isNaN(baseDate.getTime())) return totals;
 
-            const cards = document.querySelectorAll('.card');
+            const cards = document.querySelectorAll('.card:not(#salah-card)');
 
             for (let i = 0; i < daysCount; i++) {
                 let tempDate = new Date(baseDate);
@@ -862,14 +1116,25 @@
 
                 let dayInfo = db[key];
                 if (dayInfo && dayInfo.tasks) {
+                    // Regular tasks
                     cards.forEach(card => {
                         const taskId = card.getAttribute('data-task-id');
                         const zone = parseInt(card.getAttribute('data-zone'));
                         let weight = (zone === 1) ? 3 : (zone === 2) ? 2 : 1;
 
-                        for (let idx = 0; idx < 3; idx++) {
+                        for (let idx = 0; idx < children.length; idx++) {
                             if (dayInfo.tasks[taskId] && dayInfo.tasks[taskId][idx] === true) {
                                 totals[idx] += weight;
+                            }
+                        }
+                    });
+
+                    // Salah Sub-Questions
+                    PRAYERS.forEach(prayer => {
+                        const salahKey = `salah_${prayer}`;
+                        for (let idx = 0; idx < children.length; idx++) {
+                            if (dayInfo.tasks[salahKey] && dayInfo.tasks[salahKey][idx] === true) {
+                                totals[idx] += 1;
                             }
                         }
                     });
@@ -888,7 +1153,6 @@
             weeklyContainer.innerHTML = '';
             monthlyContainer.innerHTML = '';
 
-            // Render Weekly rows
             children.forEach((name, idx) => {
                 const score = weeklyScores[idx];
                 const qualified = score >= WEEKLY_THRESHOLD;
@@ -898,13 +1162,12 @@
 
                 weeklyContainer.innerHTML += `
                     <div class="leaderboard-row">
-                        <span class="leader-child-name">${name} <strong style="color:var(--child${idx+1}-color);">${score} pts</strong></span>
+                        <span class="leader-child-name">${name} <strong style="color:var(--text-color);">${score} pts</strong></span>
                         ${statusBadge}
                     </div>
                 `;
             });
 
-            // Render Monthly rows
             children.forEach((name, idx) => {
                 const score = monthlyScores[idx];
                 const qualified = score >= MONTHLY_THRESHOLD;
@@ -914,7 +1177,7 @@
 
                 monthlyContainer.innerHTML += `
                     <div class="leaderboard-row">
-                        <span class="leader-child-name">${name} <strong style="color:var(--child${idx+1}-color);">${score} pts</strong></span>
+                        <span class="leader-child-name">${name} <strong style="color:var(--text-color);">${score} pts</strong></span>
                         ${statusBadge}
                     </div>
                 `;
@@ -938,7 +1201,8 @@
         function exportData() {
             const packageData = {
                 names: children,
-                database: db
+                database: db,
+                childCount: children.length
             };
             const jsonString = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(packageData, null, 2));
             const dlAnchor = document.createElement('a');
@@ -963,14 +1227,13 @@
                         children = parsed.names;
                         db = parsed.database;
                         
+                        const count = parsed.childCount || children.length;
+                        document.getElementById('childCountSelect').value = count;
+                        localStorage.setItem('fch_child_count', count);
                         localStorage.setItem('fch_names', JSON.stringify(children));
                         saveDB();
                         
-                        document.getElementById('c1-name').value = children[0] || "Child 1";
-                        document.getElementById('c2-name').value = children[1] || "Child 2";
-                        document.getElementById('c3-name').value = children[2] || "Child 3";
-                        
-                        updateScoreboardLabels();
+                        renderDynamicSetup();
                         renderCheckboxes();
                         loadDayData();
                         alert("Data successfully imported!");
